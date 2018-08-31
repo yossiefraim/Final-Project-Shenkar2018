@@ -1,0 +1,97 @@
+h1{
+ color: #444;
+ margin: 0;
+ padding: 0px 0px 6px 0px;
+ font-size: 51px;
+ line-height: 44px;
+ font-weight: bold;
+}
+.container{
+    padding-bottom: 40px;
+    font-size: 13px;
+}
+i{
+    margin:0 auto;
+    font-size: 20em;
+    color:#343a40;
+}
+.jumbotron {
+    position: relative;
+    background-image: url("/assets/images/give.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 300px;
+    margin-top: 80px;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.card{
+    padding: 0px;
+}
+.btn-xlarge{
+    width: 200px;
+    background-color:#555555;
+}
+.btn-lg{
+    font-size:15px;
+}
+#b-left{
+    position: absolute;
+    left: 50px;
+    bottom: 15px;
+}
+#b-right{
+    position: absolute;
+    right: 50px;
+    bottom: 15px;
+}
+.img-fluid{
+    height: 150px;
+}
+.card-deck > .card
+{   
+    width: 22%;
+    flex-wrap: wrap;
+    flex: initial; 
+}
+
+.royal-color{
+    color:#005580;
+}
+.royal-background-color{
+    background-color: #005580;
+}
+@media screen and (max-width: 600px) {
+    .col-lg-12{
+        padding-top: 20px;
+    }
+    h1{
+        color: #444;
+        margin: 0;
+        padding: 0px 0px 6px 0px;
+        font-size: 51px;
+        line-height: 44px;
+        font-weight: bold;
+        margin-top: 100px;
+        margin-bottom: 10px;
+       }
+        i{
+        font-size: 10em;
+        }
+       .jumbotron {
+           display: none;
+       }
+
+       .card-deck{
+            margin: 0 auto;
+       }
+       .card-deck > .card
+       {   
+           width: 300px;
+           flex-wrap: wrap;
+           flex: initial; 
+       }
+  
+  }
+
+ 

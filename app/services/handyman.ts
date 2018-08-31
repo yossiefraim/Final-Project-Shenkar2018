@@ -1,0 +1,22 @@
+export interface Handyman{
+    applicatioId:Number,
+    userId:Number,
+    period:String,
+    urgency:Boolean,
+    gender:String,
+    language:String,
+    img:String,
+    status:String,
+    colorCorrections:Boolean,
+    furniture:Boolean,
+    generalHangingWorks:Boolean,
+    hangingOfLightFixtures:Boolean,
+    treatmentSocketsAndPowerPoints:Boolean,
+    title:String,
+    description:String,
+    city:String,
+    street:String,
+    houseNumber:Number,
+    latitude:String,
+    Longitude:String
+}

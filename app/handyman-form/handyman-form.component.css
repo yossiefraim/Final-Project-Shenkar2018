@@ -1,0 +1,52 @@
+
+.form-horizontal * {
+    direction: rtl;
+  }
+  .container{
+    padding-top:100px;
+    padding-bottom:100px;
+    font-size: 13px;
+}
+input.ng-invalid{
+    border-right: 5px solid red;
+}
+input.ng-valid{
+    border-right: 5px solid green;
+}
+select.ng-invalid{
+    border-right: 5px solid red;
+}
+selcet.ng-valid{
+    border-right: 5px solid green;
+}
+.img-fluid{
+    height: 150px;
+}
+.card-body{
+    height: 110px;
+} 
+#gridCheck1{
+    right:0px;  
+}
+.toRight{
+    right:0px;
+}
+.form-check-label{
+    margin-right: 10px;
+}
+.search{
+    width: 50%;
+    border: 1px solid #000;
+    margin-right: 15px;
+    margin-bottom: 6px;
+}
+@media screen and (max-width: 600px) {
+    .form-group{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .container{
+        font-size:10px;
+    }
+  
+  }

@@ -1,0 +1,22 @@
+.navbar{
+    direction: rtl;
+    border-radius:0px;
+    height: 5%;
+}
+.nav2{
+    margin-left:35px;
+    width: 125px;
+}
+nav {
+    font-size: 15px;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar{
+        height:auto;
+    }
+    .nav2{
+       width:auto;
+    }
+  
+  }

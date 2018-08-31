@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row text-right">
+
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-8">
+      <div class="card mt-4">
+        <img class="card-img-top img-fluid" src="..//assets/images/{{item?.img}}.jpg" alt="">
+        <div class="card-body">
+          <h1 class="card-title">{{item.title}}</h1>
+          <h4 class="card-text">{{item.description}}</h4>
+          <p class="card-text" *ngIf="item.offerId">שם מציע העזרה {{matchUser.firstname}} {{matchUser.lastname}} </p>
+          <p class="card-text" *ngIf="item.applicationID">שם מבקש העזרה {{matchUser.firstname}} {{matchUser.lastname}} </p>
+          <p class="card-text" *ngIf="item.location">מיקום {{item.location}} </p>
+          <p class="card-text">דובר את השפה ה{{item.language}} </p>
+          <p class="card-text">0{{matchUser.phone}} טלפון </p>
+          <p class="card-text">{{matchUser.mail}} אי-מייל </p>
+          <hr>
+              <button (click)="setManualMatch()" class="btn btn-success" *ngIf="item.offerId">מעוניין בעזרה זו</button>
+              <button (click)="setManualMatch()" class="btn btn-success" *ngIf="item.applicationID">!מעוניין לסייע</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-growl class="text-right" [(value)]="msgs"></p-growl>

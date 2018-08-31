@@ -1,0 +1,193 @@
+.container{
+    padding-bottom:70px;
+    padding-top:70px;
+    font-size: 13px;
+    text-align: right;
+}
+.nav a{
+    text-align: right;
+    font-size: 15px;
+}
+.nav{
+   width:15%;
+   position: fixed;
+   z-index: 1;
+   padding-top: 20px;
+   overflow-x: hidden; 
+}
+i{
+    margin:0 50%;
+    font-size: 20em;
+    color:#343a40;
+}
+#ModalLabel{
+    margin: 0 30%;
+}
+.img-fluid{
+    height: 150px;
+}
+input.ng-invalid{
+    border-right: 5px solid red;
+}
+input.ng-valid{
+    border-right: 5px solid green;
+}
+select.ng-invalid{
+    border-right: 5px solid red;
+}
+selcet.ng-valid{
+    border-right: 5px solid green;
+}
+#gridCheck1{
+    right:0px;  
+}
+.toRight{
+    right:0px;
+}
+/* איזור אישי */
+
+.card{
+    padding: 0px;
+}
+.card-body{
+    height: 110px;
+} 
+.btn-xlarge{
+    width: 200px;
+    background-color:#555555;
+}
+#b-left{
+    position: absolute;
+    left: 50px;
+    bottom: 15px;
+}
+#b-right{
+    position: absolute;
+    right: 50px;
+    bottom: 15px;
+}
+.card-deck > .card
+{   
+    width: 22%;
+    flex-wrap: wrap;
+    flex: initial; 
+}
+.royal-color{
+    color:#117bb0;
+}
+.royal-background-color{
+    background-color: #005580;
+}
+  .tSpace{
+    padding-bottom:20px;
+}
+.form-control{
+    direction: rtl;
+}
+.form-check-label{
+    margin-right: 10px;
+}
+.search{
+    width: 50%;
+    border: 1px solid #000;
+    margin-right: 15px;
+    margin-bottom: 6px;
+}
+#nav-home{
+    padding-top:20px;
+}
+@media screen and (max-width: 600px) {
+    .container{
+        padding-bottom:70px;
+        padding-top:70px;
+        text-align: right;
+        font-size:10px;
+    }
+    .nav a{
+        text-align: right;
+        font-size: 15px;
+    }
+    .nav{
+       width:25%;
+       position: fixed;
+       z-index: 1;
+       padding-top: 80px;
+       overflow-x: hidden; 
+    }
+    i{
+        font-size: 10em;
+    }
+    #ModalLabel{
+        margin: 0 25%;
+    }
+    /* אזור אישי */
+    .search{
+        width: 88%;
+        margin-right: 15px;
+        margin-bottom: 6px;
+    }
+    input.ng-invalid{
+        border-right: 5px solid red;
+    }
+    input.ng-valid{
+        border-right: 5px solid green;
+    }
+    select.ng-invalid{
+        border-right: 5px solid red;
+    }
+    selcet.ng-valid{
+        border-right: 5px solid green;
+    }
+    #gridCheck1{
+        right:0px;  
+    }
+    .toRight{
+        right:0px;
+    }
+    /* איזור אישי */
+    
+    .card{
+        padding: 0px;
+    }
+    .card-body{
+        height: 100px;
+    } 
+    .btn-xlarge{
+        width: 200px;
+        background-color:#555555;
+    }
+    #b-left{
+        position: absolute;
+        left: 50px;
+        bottom: 15px;
+    }
+    #b-right{
+        position: absolute;
+        right: 50px;
+        bottom: 15px;
+    }
+    .card-deck > .card
+    {   
+        width: 22%;
+        flex-wrap: wrap;
+        flex: initial; 
+    }
+    .royal-color{
+        color:#117bb0;
+    }
+    .royal-background-color{
+        background-color: #005580;
+    }
+
+    #nav-home{
+        padding-top: 45px;
+    }
+    .form-group{
+        margin:0 auto;
+    }
+    .top{
+        padding-top:30px!important
+    }
+    
+  }
+

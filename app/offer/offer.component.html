@@ -1,0 +1,120 @@
+<div class="container">
+  <h3 class="text-right"> טופס הרשמה</h3>
+<form novalidate class="form-horizontal text-right" #registrationForm = "ngForm" (ngSubmit)="onSubmit(registrationForm.value)">
+    <fieldset>
+      <div ngModelGroup="userInfo">
+          <div class="form-group col-md-6">
+              <label>שם פרטי</label>
+              <input type="text" #firstNameRef="ngModel" required class="form-control" name="firstName" [(ngModel)]="userInfo.firstName">
+              <div [hidden]="firstNameRef.valid || firstNameRef.pristine " class="alert alert-danger">
+              הכנס שם פרטי
+              </div>
+            </div>
+        
+            <div class="form-group col-md-6">
+              <label>שם משפחה</label>
+              <input type="text" #lastNameRef="ngModel" required class="form-control" name="lastName" [(ngModel)]="userInfo.lastName">
+              <div [hidden]="lastNameRef.valid || lastNameRef.pristine " class="alert alert-danger">
+                  הכנס שם משפחה
+              </div>
+            </div>
+              <div class="form-group col-md-6">
+                  <label>גיל</label>
+                  <input type="number" #ageRef="ngModel" required class="form-control" name="age" [(ngModel)]="userInfo.age">
+                  <div [hidden]="ageRef.valid || ageRef.pristine " class="alert alert-danger">
+                      הכנס גיל
+                  </div>
+                </div>
+              <div class="form-group col-md-6">
+            <label>מצב משפחתי</label>
+            <select class="form-control" #cityRef="ngModel" required name="city" [(ngModel)]="userInfo.status">
+              <option *ngFor="let stat of status"
+                [value]="stat"> {{stat}} </option>
+            </select>
+            <!-- צריך להשלים חיווי -->
+          </div>
+      </div>
+    </fieldset>
+      <div ngModelGroup="userContact">
+          <div class="form-group col-md-6">
+              <label>טלפון</label>
+              <input type="number" #phoneRef="ngModel" pattern="^[0]{0}[5]{1}[0-9]{8}$" required class="form-control" name="phone" [(ngModel)]="userContact.phone">
+                <div *ngIf="phoneRef.errors && (phoneRef.dirty || phoneRef.touched)" class="alert alert-danger">
+                  <div [hidden]="!phoneRef.errors.required">
+                    הכנס טלפון
+                  </div>
+                    <div [hidden]="!phoneRef.errors.pattern">
+                      מספר טלפון לא חוקי
+                      </div>
+              </div>
+            </div>
+      
+            
+      <div class="form-group col-md-6">
+        <label>אי-מייל</label>
+        <input type="email" #mailRef="ngModel" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" required class="form-control" name="mail" [(ngModel)]="userContact.email">
+        <div *ngIf="mailRef.errors && (mailRef.dirty || mailRef.touched)" class="alert alert-danger">
+            <div [hidden]="!mailRef.errors.required">
+              הכנס אי-מייל
+            </div>
+              <div [hidden]="!mailRef.errors.pattern">
+                כתובת אי-מייל לא חוקית
+                </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6 ">
+          <label>סיסמא</label>
+          <input type="password" #passRef="ngModel" required class="form-control" name="password" [(ngModel)]="userPass">
+          <div [hidden]="passRef.valid || passRef.pristine " class="alert alert-danger">
+              הכנס סיסמא
+          </div>
+        </div>
+      </div>
+        
+    
+
+    <div ngModelGroup="userAdress">
+        <div class="form-group col-md-6">
+            <label>עיר</label>
+            <select class="form-control" name="city" [(ngModel)]="userAdress.city">
+              <option *ngFor="let city of cities"
+                [value]="city"> {{city}} </option>
+                 <!-- צריך להשלים חיווי -->
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+              <label>כתובת</label>
+              <input type="text" #stRef="ngModel" minlength="2" required class="form-control" name="street" [(ngModel)]="userAdress.street">
+              <div [hidden]="stRef.valid || stRef.pristine " class="alert alert-danger">
+                  הכנס כתובת
+              </div>
+            </div>
+            <div class="form-group col-md-6 ">
+                <div class="card">
+                    <div class="card-header">
+                      תחומיי עניין
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li *ngFor="let interest of interests; let i = index" class="list-group-item">
+                          <input class="form-check-input toRight" type="checkbox" name="interest" id="gridCheck{{i}}">
+                          <label class="form-check-label" for="gridCheck{{i}}">
+                            {{interest}}
+                          </label>
+                      </li>
+                    </ul>
+                  </div>
+            </div>
+    </div>
+   
+    
+    
+    <div class="form-group text-right">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">
+                הרשמה
+            </button>
+            <a routerLink="/login">כבר רשום?</a>
+        </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,19 @@
+.form-horizontal * {
+    direction: rtl;
+  }
+  .container{
+    padding-top:100px;
+    padding-bottom:100px;
+}
+input.ng-invalid{
+    border-right: 5px solid red;
+}
+input.ng-valid{
+    border-right: 5px solid green;
+}
+#gridCheck1{
+    right:0px;  
+}
+.toRight{
+    right:0px;
+}

@@ -1,0 +1,117 @@
+<div class="container">
+  <h3 class="text-right"> טופס הרשמה</h3>
+  <form novalidate class="form-horizontal text-right" #registrationForm = "ngForm" (ngSubmit)="onSubmit(registrationForm.value)">
+    <div class="row">
+      <div class="form-group col-md-5">
+        <div class="form-group">
+          <label>שם פרטי</label>
+          <input type="text" #firstNameRef="ngModel" required class="form-control" name="firstName" [(ngModel)]="userInfo.firstName">
+          <div [hidden]="firstNameRef.valid || firstNameRef.pristine " class="alert alert-danger">הכנס שם פרטי
+          </div>
+        </div>
+          
+        <div class="form-group">
+          <label>שם משפחה</label>
+          <input type="text" #lastNameRef="ngModel" required class="form-control" name="lastName" [(ngModel)]="userInfo.lastName">
+          <div [hidden]="lastNameRef.valid || lastNameRef.pristine " class="alert alert-danger">הכנס שם משפחה</div>
+        </div>
+
+        <div class="form-group">
+          <label>גיל</label>
+          <input type="number" #ageRef="ngModel" required class="form-control" name="age" [(ngModel)]="userInfo.age">
+           <div [hidden]="ageRef.valid || ageRef.pristine " class="alert alert-danger">הכנס גיל</div>
+        </div>
+
+        <div class="form-group">
+          <label>מצב משפחתי</label>
+          <select class="form-control" #familyRef="ngModel" required name="familyStatus" [(ngModel)]="userInfo.familyStatus">
+            <option *ngFor="let stat of status" [value]="stat"> {{stat}} </option>
+            <div [hidden]="familyRef.valid || familyRef.pristine " class="alert alert-danger">בחר מצב משפחתי</div>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>מס' ילדים</label>
+          <input type="number" #kidsRef="ngModel" required class="form-control" name="kids" [(ngModel)]="userInfo.kids">
+          <div [hidden]="kidsRef.valid || kidsRef.pristine " class="alert alert-danger"> הכנס מס' ילדים</div>
+        </div>
+        
+        <div class="form-group">
+          <label>טלפון</label>
+          <input type="number" #phoneRef="ngModel" pattern="^[0]{0}[5]{1}[0-9]{8}$" required class="form-control" name="phone" [(ngModel)]="userContact.phone">
+          <div *ngIf="phoneRef.errors && (phoneRef.dirty || phoneRef.touched)" class="alert alert-danger">
+            <div [hidden]="!phoneRef.errors.required">הכנס טלפון</div>
+            <div [hidden]="!phoneRef.errors.pattern">מספר טלפון לא חוקי</div>
+          </div>
+        </div>
+              
+        
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-5">
+
+          <div class="form-group">
+              <label>אי-מייל</label>
+              <input type="email" #mailRef="ngModel" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" required class="form-control" name="mail" [(ngModel)]="userContact.email">
+              <div *ngIf="mailRef.errors && (mailRef.dirty || mailRef.touched)" class="alert alert-danger">
+                  <div [hidden]="!mailRef.errors.required">הכנס אי-מייל</div>
+                    <div [hidden]="!mailRef.errors.pattern">כתובת אי-מייל לא חוקית</div>
+              </div>
+            </div>
+    
+            <div class="form-group">
+              <label>סיסמא</label>
+              <input type="password" #passRef="ngModel" required class="form-control" name="password" [(ngModel)]="userPass">
+              <div [hidden]="passRef.valid || passRef.pristine " class="alert alert-danger">הכנס סיסמא</div>
+            </div>
+      
+            <div class="form-group">
+              <label>עיר</label>
+              <select class="form-control" #cityRef="ngModel" required name="city" [(ngModel)]="userAdress.city">
+                <option *ngFor="let city of cities" [value]="city.name"> {{city.name}} </option>
+                <div [hidden]="cityRef.valid || cityRef.pristine " class="alert alert-danger">הכנס עיר</div>
+              </select>
+            </div>
+        <div class="form-group">
+          <label>כתובת</label>
+          <input type="text" #stRef="ngModel" minlength="2" required class="form-control" name="street" [(ngModel)]="userAdress.street">
+          <div [hidden]="stRef.valid || stRef.pristine " class="alert alert-danger">הכנס כתובת</div>
+        </div>
+        <div class="form-group">
+          <label>מספר דירה</label>
+          <input type="number" #hosueRef="ngModel" minlength="2" required class="form-control" name="house" [(ngModel)]="userAdress.houseNumber">
+          <div [hidden]="hosueRef.valid || hosueRef.pristine " class="alert alert-danger">הכנס מספר דירה</div>
+        </div>
+          
+        <div class="form-group">
+          <div class="card">
+            <div class="card-header">תחומיי עניין</div>
+            <ul class="list-group list-group-flush">
+            <li  class="list-group-item">
+                <input class="form-check-input toRight" type="checkbox" name="interest1" id="gridCheck1" [(ngModel)]="userInterest.ride">
+                  <label class="form-check-label" for="gridCheck1">טרמפים</label>
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input toRight" type="checkbox" name="interest2" id="gridCheck2" [(ngModel)]="userInterest.elderly">
+                  <label class="form-check-label" for="gridCheck2">עזרה לקשיש</label>
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input toRight" type="checkbox" name="interest3" id="gridCheck3" [(ngModel)]="userInterest.handyman">
+                <label class="form-check-label" for="gridCheck3">הנדימן</label>
+              </li>
+              <li class="list-group-item">
+                <input class="form-check-input toRight" type="checkbox" name="interest4" id="gridCheck4" [(ngModel)]="userInterest.student">
+                <label class="form-check-label" for="gridCheck4">עזרה לתלמיד</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+          
+        <div class="form-group text-right">
+          <button [disabled]="!registrationForm.form.valid" type="submit" class="btn btn-primary">הרשמה</button>
+              <a routerLink="/login">כבר רשום?</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,23 @@
+export interface Student{
+    applicatioId:Number,
+    userId:Number,
+    period:String,
+    location:String,
+    urgency:Boolean,
+    gender:String,
+    language:String,
+    img:String,
+    status:String,
+    educationLevel:String,
+    fieldOfStudy:String,
+    homeWorks:Boolean,
+    testStudy:Boolean,
+    practice:Boolean,
+    title:String,
+    description:String,
+    city:String,
+    street:String,
+    houseNumber:Number,
+    latitude:String,
+    Longitude:String
+}

@@ -1,0 +1,337 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-8">
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <h2>הצעות סיוע</h2>
+              <i *ngIf="!dataFlage" class="pi pi-spin pi-spinner"></i>
+              <input *ngIf="dataFlage" [(ngModel)]="searchText" class="search text-right" placeholder="חיפוש לפי עיר">
+              <div *ngIf="dataFlage" class="card-deck">
+                  <div class="col-md-4 mb-4" *ngFor="let element of elements| filter : searchText">
+                      <img class="card-img-top img-fluid" src="..//assets/images/{{element.img}}.jpg" alt="Card image cap">
+                      <div class="card-body text-right ">
+                          <h3 class="card-title royal-color"><b>{{element.title}}</b></h3>
+                          <p class="card-text">{{element.description}}</p>
+                      </div>
+                      <div class="card-footer text-center">
+                          <button (click)="productPage(element)" type="button" class="btn btn-primary royal-background-color">פרטים נוספים</button>
+                      </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-menu1" role="tabpanel" aria-labelledby="nav-menu1-tab">
+              <menu-form></menu-form>
+            </div>
+
+            <div class="tab-pane fade" id="nav-menu2" role="tabpanel" aria-labelledby="nav-menu2-tab">
+              <div *ngIf="applications">
+              <h2>בקשות הסיוע שלי</h2>
+              <div class="tSpace table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr >
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>  
+                        <th scope="col"></th> 
+                        <th scope="col"></th> 
+                        <th scope="col">סטאטוס</th>
+                        <th scope="col">תאריך</th>
+                        <th scope="col">תיאור</th>
+                        <th scope="col">קטגוריית העזרה</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let app of applications;let i=index" [ngClass]="applicationColors[i]">
+                        <td><button type="button" (click)="deleteApplication(app,i)" class="btn btn-danger">מחיקה</button></td>
+                        <td><button type="button" [disabled]="!showInfoAppButton[i]"  data-toggle="modal"  data-target="#matchReview" class="btn btn-primary">סקר</button></td>
+                        <td><button type="button" [disabled]="!showDetailsAppButton[i]" (click)="appDialog(app,i)" data-toggle="modal"  data-target="#userMatcatchInfo" class="btn btn-info">פרטים</button></td> 
+                        <td><button type="button" [disabled]="!showDeclineAppButton[i]" (click)="declineAppManualMatch(app,i)" class="btn btn-warning">דחייה</button></td>
+                        <td><button type="button" [disabled]="!showApproveAppButton[i]" (click)="acceptAppManualMatch(app,i)" class="btn btn-success">אישור</button></td>
+                        <td>{{app.status}}</td>
+                        <td>{{app.period}}</td>
+                        <td>{{app.title}}</td>
+                        <td> {{applicationsCategory[i]}}</td> 
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                </div>
+                <div *ngIf="offers">
+                  <h2> הצעות הסיוע שלי</h2>
+                  <div class="tSpace table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                          <th scope="col"></th>
+                          <th scope="col"></th>  
+                          <th scope="col"></th>
+                          <th scope="col"></th>  
+                          <th scope="col"></th> 
+                          <th scope="col">סטאטוס</th>
+                          <th scope="col">תאריך</th>
+                          <th scope="col">תיאור</th>
+                          <th scope="col">קטגוריית העזרה</th>  
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr #offerRows *ngFor="let offer of offers;let i=index" [ngClass]="offerColors[i]">
+                          <td><button type="button" (click)="deleteOffer(offer,i)" class="btn btn-danger">מחיקה</button></td>
+                          <td><button type="button" [disabled]="!showInfoOffButton[i]" class="btn btn-primary">סקר</button></td> 
+                          <td><button type="button" [disabled]="!showDetailsOffButton[i]" (click)="offDialog(offer,i)" data-toggle="modal"  data-target="#userMatcatchInfo" class="btn btn-info">פרטים</button></td> 
+                          <td><button type="button" [disabled]="!showDeclineOffButton[i]" (click)="declineOffManualMatch(offer,i)" class="btn btn-warning">דחייה</button></td>
+                          <td><button type="button" [disabled]="!showApproveOffButton[i]" (click)="acceptOffManualMatch(offer,i)" class="btn btn-success">אישור</button></td>
+                          <td>{{offer.status}}</td> 
+                          <td>{{offer.period}}</td>
+                          <td> {{offer.title}}</td>
+                          <td> {{offersCategory[i]}}</td> 
+                          </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal fade" id="userMatcatchInfo" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title text-right" id="ModalLabel">פרטי משתמש ההתאמה</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form >
+                          <div class="matchUserInfo">
+                            <p>שם {{matchUserInfo.firstName}} {{matchUserInfo.lastName}} </p>
+                            <p>0טלפון {{matchUserInfo.phone}}</p>
+                            <p>{{matchUserInfo.mail}} אי-מייל</p>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">סגור</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="matchReview" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h3 class="modal-title text-right" id="ModalLabel">סקר לאחר התאמה</h3>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form accept-charset="UTF-8" action="" method="post">
+                                <input id="ratings-hidden" name="rating" type="hidden"> 
+                                <textarea class="form-control text-right" cols="50" id="new-review" name="comment" placeholder="...הכנס כאן הערות לאחר ביצוע ההתאמה" rows="5"></textarea>
+                                <p-rating [(ngModel)]="ratingVal" (onRate)="handleRate($event)" (onCancel)="handleCancel($event)" [ngModelOptions]="{standalone: true}"></p-rating> <span *ngIf="rateMsg" style="margin-left:10px">{{rateMsg}}</span>
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-lg btn-success">שלח</button>
+                          <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">סגור</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              <div *ngIf="matchOffers">
+                  <h2>הצעות עזרה בהן אני מעוניין</h2>
+                    <div class="tSpace table-responsive">
+                  <table class="table">
+                      <thead class="thead-dark">
+                          <tr>
+                            <th scope="col"></th> 
+                            <th scope="col"></th> 
+                            <th scope="col">סטאטוס</th>
+                            <th scope="col">אי-מייל מבקש העזרה</th>
+                            <th scope="col">טלפון מבקש העזרה</th>
+                            <th scope="col">שם מבקש העזרה</th>
+                            <th scope="col">תאריך</th>
+                            <th scope="col">תיאור</th>
+                            <th scope="col">קטגוריית העזרה</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let match of matchOffers;let i=index" [ngClass]="usersMatchOfferColors[i]"> 
+                            <td><button type="button" [disabled]="!showMatchOffButton[i]" (click)="declineOffManualMatch(match,i)" class="btn btn-warning">דחייה</button></td>
+                            <td><button type="button" [disabled]="!showMatchOffButton[i]" (click)="acceptOffManualMatch(match,i)" class="btn btn-success">אישור</button></td>
+                            <td>{{match.status}}</td>
+                            <td *ngIf="usersMatchOffers[i]">{{usersMatchOffers[i].mail}}</td>
+                            <td *ngIf="usersMatchOffers[i]">0{{usersMatchOffers[i].phone}}</td>
+                            <td *ngIf="usersMatchOffers[i]">{{usersMatchOffers[i].firstname}} {{usersMatchOffers[i].lastname}}</td>
+                            <td>{{match.period}}</td>
+                            <td>{{match.description}}</td>
+                            <td> {{matchOffersCategory[i]}}</td> 
+                            </tr>
+                      </tbody>
+                    </table>
+                    <h3 *ngIf="userMatchOfferDataFlag">לא קיימת הצעות סיוע בהן אתה מעוניין</h3>
+                </div>
+              </div>
+                <div *ngIf="matchApplications">
+                  <h2>בקשות להן אני מעוניין לסייע</h2>
+                    <div class="tSpace table-responsive">
+                  <table class="table">
+                      <thead class="thead-light">
+                          <tr>
+                            <th scope="col"></th> 
+                            <th scope="col"></th> 
+                            <th scope="col">סטאטוס</th>
+                            <th scope="col">אי-מייל מבקש העזרה</th>
+                            <th scope="col">טלפון מבקש העזרה</th>
+                            <th scope="col">שם מבקש העזרה</th>
+                            <th scope="col">תאריך</th>
+                            <th scope="col">תיאור</th>
+                            <th scope="col">קטגוריית העזרה</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let match of matchApplications;let i=index" [ngClass]="usersMatchApplicationColors[i]"> 
+                            <td><button type="button" [disabled]="!showMatchAppButton[i]" (click)="declineAppManualMatch(match,i)" class="btn btn-warning">דחייה</button></td>
+                            <td><button type="button" [disabled]="!showMatchAppButton[i]" (click)="acceptAppManualMatch(match,i)" class="btn btn-success">אישור</button></td>
+                            <td>{{match.status}}</td>
+                            <td *ngIf="usersMatchApplications[i]">{{usersMatchApplications[i].mail}}</td>
+                            <td *ngIf="usersMatchApplications[i]">0{{usersMatchApplications[i].phone}}</td>
+                            <td *ngIf="usersMatchApplications[i]">{{usersMatchApplications[i].firstname+' '+usersMatchApplications[i].lastname}} </td>  
+                            <td>{{match.period}}</td>
+                            <td>{{match.description}}</td>
+                            <td> {{matchApplicationsCategory[i]}}</td> 
+                          </tr>
+                      </tbody>
+                    </table>
+                    <h3 *ngIf="userMatchApplicationDataFlag">לא קיימת הצעות סיוע בהן אתה מעוניין</h3>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="nav-menu3" role="tabpanel" aria-labelledby="nav-menu3-tab">
+                <div class="col-md-4"></div>
+                <form novalidate class="form-horizontal text-right" #updateRegistrationForm = "ngForm" (ngSubmit)="onSubmit(updateRegistrationForm.value)">
+                      <div class="form-group col-md-8">
+                        <h2 class="text-right top"> עדכון פרטים</h2>
+                        <div class="form-group">
+                          <label>שם פרטי</label>
+                          <input type="text" #firstNameRef="ngModel" required class="form-control text-right" name="firstName" [(ngModel)]="userInfo.firstName">
+                          <div [hidden]="firstNameRef.valid || firstNameRef.pristine " class="alert alert-danger">הכנס שם פרטי
+                          </div>
+                        </div>
+                          
+                        <div class="form-group">
+                          <label>שם משפחה</label>
+                          <input type="text" #lastNameRef="ngModel" required class="form-control text-right" name="lastName" [(ngModel)]="userInfo.lastName">
+                          <div [hidden]="lastNameRef.valid || lastNameRef.pristine " class="alert alert-danger">הכנס שם משפחה</div>
+                        </div>
+                
+                        <div class="form-group">
+                          <label>גיל</label>
+                          <input type="number" #ageRef="ngModel" required class="form-control text-right" name="age" [(ngModel)]="userInfo.age">
+                           <div [hidden]="ageRef.valid || ageRef.pristine " class="alert alert-danger">הכנס גיל</div>
+                        </div>
+                
+                        <div class="form-group">
+                          <label>מצב משפחתי</label>
+                          <select class="form-control" #cityRef="ngModel" required name="familyStatus" [(ngModel)]="userInfo.familyStatus">
+                              <option [value]="userInfo.familyStatus"> {{userInfo.familyStatus}} </option>
+                            <option *ngFor="let stat of status" [value]="stat"> {{stat}} </option>
+                          </select>
+                        </div>
+                
+                        <div class="form-group">
+                          <label>מס' ילדים</label>
+                          <input type="number" #kidsRef="ngModel" required class="form-control text-right" name="kids" [(ngModel)]="userInfo.kids">
+                          <div [hidden]="kidsRef.valid || kidsRef.pristine " class="alert alert-danger"> הכנס מס' ילדים</div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label>טלפון</label>
+                          <input type="number" #phoneRef="ngModel" pattern="^[0]{0}[5]{1}[0-9]{8}$" required class="form-control text-right" name="phone" [(ngModel)]="userContact.phone">
+                          <div *ngIf="phoneRef.errors && (phoneRef.dirty || phoneRef.touched)" class="alert alert-danger">
+                            <div [hidden]="!phoneRef.errors.required">הכנס טלפון</div>
+                            <div [hidden]="!phoneRef.errors.pattern">מספר טלפון לא חוקי</div>
+                          </div>
+                        </div>
+                              
+                        <div class="form-group">
+                          <label>אי-מייל</label>
+                          <input type="email" #mailRef="ngModel" pattern="^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" required class="form-control text-right" name="mail" [(ngModel)]="userContact.email">
+                          <div *ngIf="mailRef.errors && (mailRef.dirty || mailRef.touched)" class="alert alert-danger">
+                              <div [hidden]="!mailRef.errors.required">הכנס אי-מייל</div>
+                                <div [hidden]="!mailRef.errors.pattern">כתובת אי-מייל לא חוקית</div>
+                          </div>
+                        </div>
+                
+                        <div class="form-group">
+                          <label>סיסמא</label>
+                          <input type="password" #passRef="ngModel" required class="form-control text-right" name="password" [(ngModel)]="userPass">
+                          <div [hidden]="passRef.valid || passRef.pristine " class="alert alert-danger">הכנס סיסמא</div>
+                        </div>
+                        <div class="form-group">
+                            <label>עיר</label>
+                            <select class="form-control" required name="city" [(ngModel)]="userContact.city">
+                            <option [value]="userContact.city"> {{userContact.city}} </option>
+                              <option *ngFor="let city of cities"
+                                [value]="city.name"> {{city.name}} </option>
+                            </select>
+                          </div>
+                        
+                        <div class="form-group">
+                          <label>כתובת</label>
+                          <input type="text" #stRef="ngModel" minlength="2" required class="form-control text-right" name="street" [(ngModel)]="userContact.street">
+                          <div [hidden]="stRef.valid || stRef.pristine " class="alert alert-danger">הכנס כתובת</div>
+                        </div>
+                        <div class="form-group">
+                          <label>מספר דירה</label>
+                          <input type="number" #houseRef="ngModel" minlength="1" required class="form-control text-right" name="house" [(ngModel)]="userContact.houseNumber">
+                          <div [hidden]="houseRef.valid || houseRef.pristine " class="alert alert-danger">הכנס כתובת</div>
+                        </div>
+                        <div class="form-group">
+                          <div class="card">
+                            <div class="card-header">תחומיי עניין</div>
+                            <ul class="list-group list-group-flush">
+                            <li  class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest1" id="gridCheck1"  [(ngModel)]="userInterest.ride">
+                                  <label class="form-check-label" for="gridCheck1">טרמפים</label>
+                              </li>
+                              <li class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest2" id="gridCheck2" [(ngModel)]="userInterest.elderly">
+                                  <label class="form-check-label" for="gridCheck2">עזרה לקשיש</label>
+                              </li>
+                              <li class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest3" id="gridCheck3"  [(ngModel)]="userInterest.handyman">
+                                <label class="form-check-label" for="gridCheck3">הנדימן</label>
+                              </li>
+                              <li class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest4" id="gridCheck4"  [(ngModel)]="userInterest.student" >
+                                <label class="form-check-label" for="gridCheck4">עזרה לתלמיד</label>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                          
+                        <div class="form-group text-right">
+                          <button [disabled]="!updateRegistrationForm.form.valid" type="submit" class="btn btn-primary">עדכון פרטים</button>
+                        </div>
+                    </div>
+                  </form>
+            </div>
+          </div>
+    </div>
+    <div class="col-md-3 col-4">
+    <div class="nav nav-pills nav-stacked flex-column ">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">הצעות סיוע</a>
+        <a class="nav-item nav-link" id="nav-menu1-tab" data-toggle="tab" href="#nav-menu1" role="tab" aria-controls="nav-menu1" aria-selected="false">בקש או הצע סיוע</a>
+        <a class="nav-item nav-link" id="nav-menu2-tab" data-toggle="tab" href="#nav-menu2" role="tab" aria-controls="nav-menu2" aria-selected="false"> אזור אישי</a>
+        <a class="nav-item nav-link" id="nav-menu3-tab" data-toggle="tab" href="#nav-menu3" role="tab" aria-controls="nav-menu3" aria-selected="false"> פרטים אישיים</a>
+    </div>
+  </div>
+  <div class="clearfix visible-lg"></div>
+    
+  </div>
+</div>
+  
+<p-growl class="text-right" [(value)]="msgs"></p-growl>

@@ -1,0 +1,181 @@
+<div class="container">
+    <h3 class="text-right"> טופס הנדימן</h3>
+  
+  <form novalidate class="form-horizontal text-right" #handymanForm = "ngForm" (ngSubmit)="onSubmit(handymanForm.value)">
+     <div class="row">
+       <div class="col-md-5">
+         <div class="form-group">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary btn-lg active" (click) ="onChange(1)" >
+                  <input type="radio" name="options" id="option1" autocomplete="off" [value]="1" checked> צריך עזרה?
+                </label>
+                <label class="btn btn-primary btn-lg" (click) ="onChange(2)">
+                  <input type="radio" name="options" id="option2" autocomplete="off" [value]="2" > רוצה לסייע?
+                </label>
+              </div>
+         </div>
+         <div class="form-group">
+            <label> כותרת</label>
+            <input type="text" #title="ngModel" minlength="2" required class="form-control" name="title" [(ngModel)]="info.title">
+            <div [hidden]="title.valid || title.pristine " class="alert alert-danger">
+                הכנס כותרת
+            </div>
+            </div>
+ 
+          <div class="form-group">
+            <label>תיאור</label>
+            <input type="text" #description="ngModel" minlength="2" required class="form-control" name="description" [(ngModel)]="info.description">
+            <div [hidden]="description.valid || description.pristine " class="alert alert-danger">
+                הכנס תיאור
+            </div>
+         </div>
+          <div class="form-group">
+              <label>עיר</label>
+              <select class="form-control" required name="city" [(ngModel)]="info.city">
+                <option [value]="info.city"> {{info.city}} </option>
+                <option *ngFor="let city of cities"
+                  [value]="city.name"> {{city.name}} </option>
+                   <!-- צריך להשלים חיווי -->
+              </select>
+            </div>
+            <div class="form-group">
+                <label> כתובת </label>
+                <input type="text" #stRef1="ngModel" minlength="2" required class="form-control" name="street1" [(ngModel)]="info.street">
+                <div [hidden]="stRef1.valid || stRef1.pristine " class="alert alert-danger">
+                    הכנס כתובת
+                </div>
+              </div>
+              <div class="form-group">
+                <label>מספר דירה</label>
+                <input type="number" #hosueRef="ngModel" minlength="2" required class="form-control" name="house" [(ngModel)]="info.houseNumber">
+                <div [hidden]="hosueRef.valid || hosueRef.pristine " class="alert alert-danger">הכנס מספר דירה</div>
+              </div>
+              <div class="form-group">
+                    <button class="btn-lg btn-primary" type="button" (click)="updateAddress()"> השתמש במיקום הנוכחי שלי</button>
+                </div>
+              <div class="form-group">
+                  <label>זמן התחלה</label>
+                  <input type="date" #startTimeDate="ngModel" required class="form-control" id="startTimeDate" name="startTimeDate" [(ngModel)]="timeInfo.startTimeDate">
+                  <input type="time" #startTimeHour="ngModel" required class="form-control" id="startTimeHour" name="startTimeHour" [(ngModel)]="timeInfo.startTimeHour">
+                  <div [hidden]="startTimeDate.valid || startTimeDate.pristine || startTimeHour.valid || startTimeHour.pristine " class="alert alert-danger">
+                  הכנס טווח שעות
+                  </div>
+                </div>
+
+              <div class="form-group">
+                  <label>שפה</label>
+                    <select class="form-control" required name="language" [(ngModel)]="info.language">
+                      <option value="" selected disabled hidden> בחר שפה...</option>
+                      <option *ngFor="let language of languages"
+                        [value]="language"> {{language}} </option>
+                         <!-- צריך להשלים חיווי -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>מין</label>
+                  <select class="form-control" required name="gender" [(ngModel)]="info.gender">
+                    <option value="" selected disabled hidden> בחר מין...</option>
+                    <option *ngFor="let gender of genders"
+                      [value]="gender"> {{gender}} </option>
+                       <!-- צריך להשלים חיווי -->
+                  </select>
+                  </div> 
+                  
+                  <div class="form-group">
+                      <div class="card">
+                          <div class="card-header">
+                            תיאור העזרה 
+                          </div>
+                          <ul class="list-group list-group-flush">
+                            <li  class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest1" id="gridCheck1" (change)="checkBoxChange(1)" [(ngModel)]="userInterest.option1">
+                                <label class="form-check-label" for="gridCheck1">
+                                    תיקוני צבע
+                                </label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest2" id="gridCheck2" (change)="checkBoxChange(2)" [(ngModel)]="userInterest.option2">
+                                <label class="form-check-label" for="gridCheck2">
+                                    פירוק והרכבת ריהוט
+                                </label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest3" id="gridCheck3" (change)="checkBoxChange(3)" [(ngModel)]="userInterest.option3">
+                                <label class="form-check-label" for="gridCheck3">
+                                    עבודות תלייה כלליות
+                                </label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest4" id="gridCheck4" (change)="checkBoxChange(4)" [(ngModel)]="userInterest.option4">
+                                <label class="form-check-label" for="gridCheck4">
+                                    תליית גופי תאורה
+                                </label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input toRight" type="checkbox" name="interest5" id="gridCheck5" (change)="checkBoxChange(5)" [(ngModel)]="userInterest.option5">
+                                <label class="form-check-label" for="gridCheck5">
+                                    טיפול בשקעים ונקודות חשמל
+                                </label>
+                            </li>
+                          </ul>
+                        </div>
+                  </div>
+                  <div class="form-group text-right">
+                      <div class="col-md-6"></div>
+                          <button [disabled]="!handymanForm.form.valid" type="submit" class="btn btn-primary">
+                              הרשמה
+                          </button>
+                      </div>
+                  </div> 
+                
+                  
+              <div *ngIf="!userInterest.isApplication" class="col-md-6">
+                    <input [(ngModel)]="searchText" name="searchBox" class="search text-right" placeholder="חיפוש לפי עיר">
+                      <div class="card-deck">
+                          <div class="col-md-6 mb-4" *ngFor="let element of randomHandyManApps| filter : searchText">
+                              <img class="card-img-top img-fluid" src="..//assets/images/{{element.img}}.jpg" alt="Card image cap">
+                              <div class="card-body text-right ">
+                                  <h3 class="card-title royal-color"><b>{{element.title}}</b></h3>
+                                  <p class="card-text">{{element.description}}</p>
+                              </div>
+                              <div class="card-footer text-center">
+                                  <button (click)="productPage(element)"  type="button" class="btn btn-primary royal-background-color">פרטים נוספים</button>
+                              </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!userInterest.isOffer" class="col-md-6">
+                        <input [(ngModel)]="searchText" name="searchBox" class="search text-right" placeholder="חיפוש לפי עיר">
+                          <div class="card-deck">
+                              <div class="col-md-6 mb-4" *ngFor="let element of randomHandyManOffs| filter : searchText">
+                                  <img class="card-img-top img-fluid" src="..//assets/images/{{element.img}}.jpg" alt="Card image cap">
+                                  <div class="card-body text-right ">
+                                      <h3 class="card-title royal-color"><b>{{element.title}}</b></h3>
+                                      <p class="card-text">{{element.description}}</p>
+                                  </div>
+                                  <div class="card-footer text-center">
+                                      <button (click)="productPage(element)"  type="button" class="btn btn-primary royal-background-color">פרטים נוספים</button>
+                                  </div>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="row">
+                        <h1>עשוי לעניין אותך...</h1>
+                        <div class="card-deck">
+                                  <div class="col-md-3 mb-4" *ngFor="let element of handymanSuggestionsApplication| filter : searchText">
+                                      <img class="card-img-top img-fluid" src="..//assets/images/{{element.img}}.jpg" alt="Card image cap">
+                                      <div class="card-body text-right ">
+                                          <h3 class="card-title royal-color"><b>{{element.title}}</b></h3>
+                                          <p class="card-text">{{element.description}}</p>
+                                      </div>
+                                      <div class="card-footer text-center">
+                                          <button (click)="productPage(element)"  type="button" class="btn btn-primary royal-background-color">פרטים נוספים</button>
+                                      </div>
+                                </div>
+                            </div>
+                    </div>
+    </form>
+  </div>
+

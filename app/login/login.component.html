@@ -1,0 +1,10 @@
+<p-growl class="text-right" [(value)]="msgs"></p-growl>
+<form class="form-signin form-horizontal" (submit)="loginUser($event)">
+    <h1 class="h3 mb-3 font-weight-normal toLeft">כניסה לחשבון</h1>
+    <input type="email" id="inputEmail" class="form-control" placeholder="אי-מייל" required="" autofocus="">
+    <input type="password" id="inputPassword" class="form-control" placeholder="סיסמא" required="">
+    <button class="btn btn-lg btn-primary btn-block" >כניסה</button>
+    <button class="btn btn-lg btn-secondary btn-block" routerLink="/registration">הרשמה</button>
+    <a class="toLeft" dir="rtl" routerLink="/home">שכחת סיסמא?</a>
+  </form>
+ 
